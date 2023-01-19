@@ -1,0 +1,68 @@
+/* The body has a default margin. Remove it via: */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+/* ALL DIVS GIVEN BORDER-BOX to avoid redundancy in code and to make formatting consistent when adding padding! */
+div {
+  box-sizing: border-box;
+}
+
+.header {
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    padding: 0rem 4rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header  h1 {
+    margin: 5px;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+div.gridbox {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+div.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0rem;
+    height: 500px;
+    /* I LOVE THE GAP FEATURE */
+    gap: 50px;
+    flex-wrap: nowrap;
+}
+
+.left-panel {
+    display: flex;
+    text-align: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    display: block;
+    padding: 0px 20px;
+    height:500px;
+}
+.left-panel h2 {
+    margin-top: 0px;
+}
+
+.settings-box {
+    border: 1px solid black;
+    border-radius: 10px;
+    /* box-sizing: border-box; */
+    height: 130px;
+    width: auto;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px 20px;
+    flex-wrap: wrap;
+}
