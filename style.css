@@ -10,17 +10,18 @@ div {
 
 div.gridbox {
     /* ADDS BORDER TO THE OUTSIDE FOR THIS DIV ONLY SO THE WRAP FITS PERFECTLY INSIDE WITH NO SPILLOVER */
-    box-sizing: content-box;
+    /* box-sizing: content-box;
     width: 500px;
     height: 500px;
     border: 1px solid black;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
+    color: red;
 }
 
 div.mini-grid-square {
-    width: 31.25px;
-    height: 31.25px;
+    /* width: 31.25px;
+    height: 31.25px; */
     border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
