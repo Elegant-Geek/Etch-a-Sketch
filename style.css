@@ -8,6 +8,25 @@ div {
   box-sizing: border-box;
 }
 
+div.gridbox {
+    /* ADDS BORDER TO THE OUTSIDE FOR THIS DIV ONLY SO THE WRAP FITS PERFECTLY INSIDE WITH NO SPILLOVER */
+    box-sizing: content-box;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.mini-grid-square {
+    width: 31.25px;
+    height: 31.25px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
 .header {
     width: 100%;
     border: 1px solid black;
@@ -22,12 +41,6 @@ div {
 }
 body {
     font-family: 'Roboto', sans-serif;
-}
-
-div.gridbox {
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
 }
 
 div.main-container {
@@ -49,7 +62,7 @@ div.main-container {
     align-items: center;
     display: block;
     padding: 0px 20px;
-    height:500px;
+    height: 500px;
 }
 .left-panel h2 {
     margin-top: 0px;
