@@ -1,6 +1,8 @@
-const rightPanel = document.querySelector('.right-panel');
+// NOTE: that below, I am only grabbing the gridbox and adding css styles to it from within using DOM, this main gridbox container itself is not added thru JS (it sits in HTML.) 
+// The critical / primary styles however, ARE added via DOM / JS stuff! I chose to add the CSS styles in HERE so that the dimensions of the gridbox can remain more dynamic (500x500 for now.)
 const gridbox = document.querySelector('.gridbox');
 // setting up properties of the huge gridbox inside the DOM so that I can grab the width from within!!!!!
+// NOTE: THIS is the line (gridbox.style.cssText) where you can change the width and height of the main gridbox container dynamically w/o it breaking anything else!
 gridbox.style.cssText = "box-sizing: content-box; width: 500px; height: 500px; border: 1px solid black; display: flex; flex-wrap: wrap;"
 // actually grabbing the css width property I set to the grid so that I can use it as a variable in case it ever changes!
 // using regex variable to grab everything before 'px' in the width property!
