@@ -86,7 +86,7 @@ div.main-container {
     flex-wrap: wrap;
 }
 
-.eraser-box {
+#eraser-box {
     justify-content: center;
     gap: 20px;
 }

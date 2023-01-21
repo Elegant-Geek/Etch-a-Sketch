@@ -15,6 +15,7 @@ let userInput = 16;
 let maxWidth = 60;
 let userColor = 'black';
 let defaultBackgroundColor = 'white';
+let secondColorEnable = false;
 
 // set up clear grid button, size label, and slider:
 const sizeValue = document.getElementById('grid-size-label');
@@ -40,6 +41,24 @@ function changeSize(value) {
     // clear grid will make it blank then load in the grid with the new user input!
     clearGrid();
     }
+
+const eraserButton = document.getElementById('eraser-btn');
+// add the event listener (clears grid when button is clicked)
+eraserButton.addEventListener("click", toggleBackgroundColor);
+function toggleBackgroundColor() {
+    if (secondColorEnable === false) {
+        secondColorEnable = true;
+        eraserButton.style.cssText = `background-color: 'red';`
+        userColor = defaultBackgroundColor;
+    }
+    
+    else if (secondColorEnable === true) {
+        secondColorEnable = false;
+        //change later to match color
+        userColor = 'black';
+    }
+
+  }
 
 function loadGrid(userInput) {
     // BObtain the grid square width based on the current large gridbox container width and height:
