@@ -13,6 +13,8 @@ const gridboxWidth = parseInt(gridbox.style.width.match(regex));
 // NOTE: THIS LINE (let userInput = 30;) IS THE ONLY LINE THE USER WILL BE ABLE TO CHANGE. This is the only variable the user will be able to change in the future!
 // NOTE: DO NOT exceed 100 x 100 px grid please!!!!
 let userInput = 30;
+
+let userColor = 'black';
 let squareUserInput = (userInput ** 2);
 // this always calculates the exact pixels needed for the grid so that the only thing the user needs to change is the user input (ex: 16 x 16) dimension!
 // NOTE: ALL other variables are related back / dependent on / tied to what the user sets as the input for the grid. Variables like smallGridWidth and 
@@ -23,6 +25,9 @@ const smallGridWidth = (gridboxWidth / userInput);
 console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
 console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
 
+//enable is drawing constant 
+// source: https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event#examples
+let isDrawing = false;
 
 for (let i = 0; i < squareUserInput; i++) {
     if (userInput <= 100) {
@@ -33,8 +38,26 @@ for (let i = 0; i < squareUserInput; i++) {
         smallGrid.style.width = `${smallGridWidth}px`;
         // easily setting height below to match that width pixel dimension so that grid squares always come out uniform.
         smallGrid.style.height = smallGrid.style.width;
+        // add black bg color to div on hover
+        smallGrid.addEventListener('mousedown', () => {
+            isDrawing = true;
+          });
+          smallGrid.addEventListener('mousemove', (event) => {
+            if (isDrawing) {
+                pickColor(event);
+            }
+          });
+        smallGrid.addEventListener('mouseup', () => {
+        isDrawing = false;
+        });
+
         // place div element inside #result div
         gridbox.appendChild(smallGrid);
+
+        // defining the function that occurs when hover is selected
+        function pickColor(event) {
+            event.target.style.backgroundColor = `${userColor}`;
+        }
     }
     else {
         console.log('PLEASE INSERT A GRID VALUE LESS THAN OR EQUAL TO 100 x 100 PIXELS!')
@@ -43,4 +66,5 @@ for (let i = 0; i < squareUserInput; i++) {
     }
 
   }
+
 
