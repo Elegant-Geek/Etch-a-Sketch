@@ -63,6 +63,8 @@ function toggleBackgroundColor() {
   }
 
 function loadGrid(userInput) {
+    // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
+    if (secondColorEnable === true) {toggleBackgroundColor();}
     // BObtain the grid square width based on the current large gridbox container width and height:
     const smallGridWidth = (gridboxWidth / userInput);
     // I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
