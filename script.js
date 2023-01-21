@@ -9,12 +9,15 @@ gridbox.style.cssText = "box-sizing: content-box; width: 500px; height: 500px; b
 const regex = /(.*)px/gm;
 // creating the constant that holds the integer value of the css value of '500px' for instance (stores the integer value '500')
 const gridboxWidth = parseInt(gridbox.style.width.match(regex));
+// set up clear grid button
+const clearGridButton = document.getElementById('clear-grid-btn');
 
 // NOTE: THIS LINE (let userInput = 30;) IS THE ONLY LINE THE USER WILL BE ABLE TO CHANGE. This is the only variable the user will be able to change in the future!
 // NOTE: DO NOT exceed 60 x 60 px grid please!!!!
 let userInput = 30;
 let maxWidth = 60;
 let userColor = 'black';
+let defaultBackgroundColor = 'white';
 let squareUserInput = (userInput ** 2);
 // this always calculates the exact pixels needed for the grid so that the only thing the user needs to change is the user input (ex: 16 x 16) dimension!
 // NOTE: ALL other variables are related back / dependent on / tied to what the user sets as the input for the grid. Variables like smallGridWidth and 
@@ -32,27 +35,32 @@ for (let i = 0; i < squareUserInput; i++) {
         // create a classname for each div
         smallGrid.className = 'mini-grid-square';
         // width and height is determined directly from the user's input of grid size!
-        smallGrid.style.width = `${smallGridWidth}px`;
-        // easily setting height below to match that width pixel dimension so that grid squares always come out uniform.
-        smallGrid.style.height = smallGrid.style.width;
+        smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
         // add black bg color to div on hover
-
           smallGrid.addEventListener('mousemove', (pickColor));
-
         // place div element inside #result divs
         gridbox.appendChild(smallGrid);
-
         // defining the function that occurs when hover is selected
         function pickColor(event) {
             smallGrid.style.backgroundColor = `${userColor}`;
         }
+        clearGridButton.addEventListener("click", clearGrid);
+        function clearGrid() {
+          // grab all divs then clear them
+          const smallGridDivs = document.querySelectorAll('.mini-grid-square');
+          // reset bg color back to white for all little grid divs
+          smallGrid.style.backgroundColor = `${defaultBackgroundColor}`;
+        }
+      
     }
     else {
         console.log(`PLEASE INSERT A GRID VALUE LESS THAN OR EQUAL TO ${maxWidth} x ${maxWidth} PIXELS!`)
         //break allows you to only run this command once rather than a million times
         break;
     }
-
   }
+  
+
+
 
 
