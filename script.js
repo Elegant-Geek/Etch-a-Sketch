@@ -9,58 +9,78 @@ gridbox.style.cssText = "box-sizing: content-box; width: 500px; height: 500px; b
 const regex = /(.*)px/gm;
 // creating the constant that holds the integer value of the css value of '500px' for instance (stores the integer value '500')
 const gridboxWidth = parseInt(gridbox.style.width.match(regex));
-// set up clear grid button
-const clearGridButton = document.getElementById('clear-grid-btn');
-
-// NOTE: THIS LINE (let userInput = 30;) IS THE ONLY LINE THE USER WILL BE ABLE TO CHANGE. This is the only variable the user will be able to change in the future!
+// this must be set to 16 to match the initial slider default position loaded in the browser.
+let userInput = 16;
 // NOTE: DO NOT exceed 60 x 60 px grid please!!!!
-let userInput = 30;
 let maxWidth = 60;
 let userColor = 'black';
 let defaultBackgroundColor = 'white';
-let squareUserInput = (userInput ** 2);
-// this always calculates the exact pixels needed for the grid so that the only thing the user needs to change is the user input (ex: 16 x 16) dimension!
-// NOTE: ALL other variables are related back / dependent on / tied to what the user sets as the input for the grid. Variables like smallGridWidth and 
-// BELOW: is the calculation variable to obtain the grid square width based on the current large gridbox container width and height!!!
-const smallGridWidth = (gridboxWidth / userInput);
-// I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
 
-console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
-console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
-
-
-for (let i = 0; i < squareUserInput; i++) {
-    if (userInput <= maxWidth) {
-        const smallGrid= document.createElement('div');
-        // create a classname for each div
-        smallGrid.className = 'mini-grid-square';
-        // width and height is determined directly from the user's input of grid size!
-        smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
-        // add black bg color to div on hover
-          smallGrid.addEventListener('mousemove', (pickColor));
-        // place div element inside #result divs
-        gridbox.appendChild(smallGrid);
-        // defining the function that occurs when hover is selected
-        function pickColor(event) {
-            smallGrid.style.backgroundColor = `${userColor}`;
-        }
-        clearGridButton.addEventListener("click", clearGrid);
-        function clearGrid() {
-          // grab all divs then clear them
-          const smallGridDivs = document.querySelectorAll('.mini-grid-square');
-          // reset bg color back to white for all little grid divs
-          smallGrid.style.backgroundColor = `${defaultBackgroundColor}`;
-        }
-      
-    }
-    else {
-        console.log(`PLEASE INSERT A GRID VALUE LESS THAN OR EQUAL TO ${maxWidth} x ${maxWidth} PIXELS!`)
-        //break allows you to only run this command once rather than a million times
-        break;
-    }
+// set up clear grid button, size label, and slider:
+const sizeValue = document.getElementById('grid-size-label');
+const gridSlider = document.getElementById('gridSizeSlider');
+const clearGridButton = document.getElementById('clear-grid-btn');
+// add the event listener (clears grid when button is clicked)
+clearGridButton.addEventListener("click", clearGrid);
+function clearGrid() {
+    // reset bg color back to white for all little grid divs
+    // smallGrid.style.backgroundColor = `${defaultBackgroundColor}`;
+    gridbox.innerHTML='';
+    // load the grid with the currently configured user input
+    loadGrid(userInput);
   }
-  
+
+// from https://github.com/michalosman for changing slider value: 
+gridSlider.onchange = (e) => changeSize(e.target.value);
+function changeSize(value) {
+    // update with correct user value from the slider!
+    userInput = value;
+    // update slider display text instantly:
+    sizeValue.innerHTML = `${value} x ${value}`;
+    // clear grid will make it blank then load in the grid with the new user input!
+    clearGrid();
+    }
 
 
 
+function loadGrid(userInput) {
+    // BObtain the grid square width based on the current large gridbox container width and height:
+    const smallGridWidth = (gridboxWidth / userInput);
+    // I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
+    console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
+    console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
+    for (let i = 0; i < userInput ** 2; i++) {
+        if (userInput <= maxWidth) {
+            // this always calculates the exact pixels needed for the grid so that the only thing the user needs to change is the user slider input (ex: 16 x 16) dimension!
+            // NOTE: ALL other variables are related back / dependent on / tied to what the user sets as the input for the grid. 
+            const smallGrid= document.createElement('div');
+            // create a classname for each div
+            smallGrid.className = 'mini-grid-square';
+            // width and height is determined directly from the user's input of grid size!
+            smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
+            // event listeners
+            smallGrid.addEventListener('mousemove', (pickColor));
+            // place div element inside #result divs
+            gridbox.appendChild(smallGrid);
+            // defining the function that occurs when hover is selected
+            function pickColor(event) {
+                smallGrid.style.backgroundColor = `${userColor}`;
+            }
+        }
+
+        else {
+            console.log(`Grid dimensions must be less than ${maxWidth} x ${maxWidth} pixels.`)
+            //break allows you to only run this command once rather than a million times
+            break;
+        }
+      }
+
+}
+
+
+
+// tells browser what to run on refresh
+window.onload = () => {
+    loadGrid(userInput);
+  }
 
