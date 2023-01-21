@@ -1,6 +1,5 @@
 // NOTE: that below, I am only grabbing the gridbox and adding css styles to it from within using DOM, this main gridbox container itself is not added thru JS (it sits in HTML.) 
 // The critical / primary styles however, ARE added via DOM / JS stuff! I chose to add the CSS styles in HERE so that the dimensions of the gridbox can remain more dynamic (500x500 for now.)
-
 // assign the main gridbox div to a parent container reference for gridbox DOM children:
 const gridbox = document.querySelector('.gridbox');
 const gridboxWidth = 500;
