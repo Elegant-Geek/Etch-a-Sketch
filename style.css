@@ -8,18 +8,17 @@ div {
   box-sizing: border-box;
 }
 
-div.gridbox {
-    /* ADDS BORDER TO THE OUTSIDE FOR THIS DIV ONLY SO THE WRAP FITS PERFECTLY INSIDE WITH NO SPILLOVER */
-    /* box-sizing: content-box;
-    width: 500px;
-    height: 500px;
+button {
+    background-color: aquamarine;
     border: 1px solid black;
-    display: flex;
-    flex-wrap: wrap; */
-    color: red;
-}
+    text-align: center;
+    border-radius: 10px;
+    width: 120px;
+    padding: 10px;
+    cursor:pointer;
+  }
 
-div.mini-grid-square {
+.mini-grid-square {
     /* width: 31.25px;
     height: 31.25px; */
     border: 1px solid black;
@@ -27,8 +26,6 @@ div.mini-grid-square {
     flex-wrap: wrap;
     flex-direction: row;
 }
-
-
 
 
 .header {
@@ -81,13 +78,27 @@ div.main-container {
     height: 130px;
     width: auto;
     text-align: center;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
-    padding: 0px 20px;
+    padding: 10px 20px;
     flex-wrap: wrap;
 }
 
+
+
+/* css styles applied ONLY to the box that has the eraser and clear buttons in it */
 #eraser-box {
     justify-content: center;
     gap: 20px;
 }
+
+#grid-size-box p {
+    margin: 2px;
+}
+
+#grid-size-slider {
+    margin: 10px 0px;
+}
+
 

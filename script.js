@@ -19,7 +19,7 @@ let secondColorEnable = false;
 
 // set up clear grid button, size label, and slider:
 const sizeValue = document.getElementById('grid-size-label');
-const gridSlider = document.getElementById('gridSizeSlider');
+const gridSlider = document.getElementById('grid-size-slider');
 const clearGridButton = document.getElementById('clear-grid-btn');
 // add the event listener (clears grid when button is clicked)
 clearGridButton.addEventListener("click", clearGrid);
@@ -48,12 +48,15 @@ eraserButton.addEventListener("click", toggleBackgroundColor);
 function toggleBackgroundColor() {
     if (secondColorEnable === false) {
         secondColorEnable = true;
-        eraserButton.style.cssText = `background-color: 'red';`
+        eraserButton.style.cssText = 'background-color: rgb(116, 116, 221)';
+        eraserButton.innerHTML = 'Get Pen';
         userColor = defaultBackgroundColor;
     }
     
     else if (secondColorEnable === true) {
         secondColorEnable = false;
+        eraserButton.style.cssText = 'background-color: aquamarine';
+        eraserButton.innerHTML = 'Get Eraser';
         //change later to match color
         userColor = 'black';
     }
@@ -93,8 +96,6 @@ function loadGrid(userInput) {
       }
 
 }
-
-
 
 // tells browser what to run on refresh
 window.onload = () => {
