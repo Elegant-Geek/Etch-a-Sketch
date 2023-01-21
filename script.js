@@ -11,9 +11,9 @@ const regex = /(.*)px/gm;
 const gridboxWidth = parseInt(gridbox.style.width.match(regex));
 
 // NOTE: THIS LINE (let userInput = 30;) IS THE ONLY LINE THE USER WILL BE ABLE TO CHANGE. This is the only variable the user will be able to change in the future!
-// NOTE: DO NOT exceed 100 x 100 px grid please!!!!
+// NOTE: DO NOT exceed 60 x 60 px grid please!!!!
 let userInput = 30;
-
+let maxWidth = 60;
 let userColor = 'black';
 let squareUserInput = (userInput ** 2);
 // this always calculates the exact pixels needed for the grid so that the only thing the user needs to change is the user input (ex: 16 x 16) dimension!
@@ -30,7 +30,7 @@ console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px
 let isDrawing = false;
 
 for (let i = 0; i < squareUserInput; i++) {
-    if (userInput <= 100) {
+    if (userInput <= maxWidth) {
         const smallGrid= document.createElement('div');
         // create a classname for each div
         smallGrid.className = 'mini-grid-square';
@@ -60,7 +60,7 @@ for (let i = 0; i < squareUserInput; i++) {
         }
     }
     else {
-        console.log('PLEASE INSERT A GRID VALUE LESS THAN OR EQUAL TO 100 x 100 PIXELS!')
+        console.log('PLEASE INSERT A GRID VALUE LESS THAN OR EQUAL TO 60 x 60 PIXELS!')
         //break allows you to only run this command once rather than a million times
         break;
     }
