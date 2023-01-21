@@ -1,17 +1,17 @@
 // NOTE: that below, I am only grabbing the gridbox and adding css styles to it from within using DOM, this main gridbox container itself is not added thru JS (it sits in HTML.) 
 // The critical / primary styles however, ARE added via DOM / JS stuff! I chose to add the CSS styles in HERE so that the dimensions of the gridbox can remain more dynamic (500x500 for now.)
+
+// assign the main gridbox div to a parent container reference for gridbox DOM children:
 const gridbox = document.querySelector('.gridbox');
+const gridboxWidth = 500;
 // setting up properties of the huge gridbox inside the DOM so that I can grab the width from within!!!!!
 // NOTE: THIS is the line (gridbox.style.cssText) where you can change the width and height of the main gridbox container dynamically w/o it breaking anything else!
-gridbox.style.cssText = "box-sizing: content-box; width: 500px; height: 500px; border: 1px solid black; display: flex; flex-wrap: wrap;"
-// actually grabbing the css width property I set to the grid so that I can use it as a variable in case it ever changes!
-// using regex variable to grab everything before 'px' in the width property!
-const regex = /(.*)px/gm;
-// creating the constant that holds the integer value of the css value of '500px' for instance (stores the integer value '500')
-const gridboxWidth = parseInt(gridbox.style.width.match(regex));
+// the constant of the gridbox width is placed inside the styling here after setting the constant (removed redundant regex pulling)
+gridbox.style.cssText = `box-sizing: content-box; width: ${gridboxWidth}px; height: ${gridboxWidth}px; border: 1px solid black; display: flex; flex-wrap: wrap;`;
+
 // this must be set to 16 to match the initial slider default position loaded in the browser.
 let userInput = 16;
-// NOTE: DO NOT exceed 60 x 60 px grid please!!!!
+// NOTE: DO NOT exceed 60 x 60 px grid for simplicity:
 let maxWidth = 60;
 let userColor = 'black';
 let defaultBackgroundColor = 'white';
@@ -40,8 +40,6 @@ function changeSize(value) {
     // clear grid will make it blank then load in the grid with the new user input!
     clearGrid();
     }
-
-
 
 function loadGrid(userInput) {
     // BObtain the grid square width based on the current large gridbox container width and height:
