@@ -20,7 +20,8 @@ let isDrawing = false;
 const sizeValue = document.getElementById('grid-size-label');
 const gridSlider = document.getElementById('grid-size-slider');
 const clearGridButton = document.getElementById('clear-grid-btn');
-const smallGridWidth = (gridboxWidth / userInput);
+// LET, not CONST for smallgridwidth because this dimension changes whenever the user input is altered with the grid sizing slider!!!!!
+let smallGridWidth = (gridboxWidth / userInput);
 
 // add the event listener (clears grid when button is clicked)
 clearGridButton.addEventListener("click", clearGrid);
@@ -37,6 +38,8 @@ gridSlider.onchange = (e) => changeSize(e.target.value);
 function changeSize(value) {
     // update with correct user value from the slider!
     userInput = value;
+    // every time the grid size updates, the gridbox width MUST be re-defined! 
+    smallGridWidth = (gridboxWidth / userInput);
     // update slider display text instantly:
     sizeValue.innerHTML = `${value} x ${value}`;
     // clear grid will make it blank then load in the grid with the new user input!
@@ -87,8 +90,8 @@ function changeBackgroundColor() {
 function loadGrid(userInput) {
     // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
     if (secondColorEnable === true) {toggleBackgroundColor();}
-    // BObtain the grid square width based on the current large gridbox container width and height:
-
+    // Obtain the grid square width based on the current large gridbox container width and height: (MUST NEVER COMMENT THIS OUT)
+    const smallGridWidth = (gridboxWidth / userInput);
     // I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
     console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
     console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
