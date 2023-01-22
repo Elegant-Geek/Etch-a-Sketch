@@ -20,6 +20,8 @@ let isDrawing = false;
 const sizeValue = document.getElementById('grid-size-label');
 const gridSlider = document.getElementById('grid-size-slider');
 const clearGridButton = document.getElementById('clear-grid-btn');
+const smallGridWidth = (gridboxWidth / userInput);
+
 // add the event listener (clears grid when button is clicked)
 clearGridButton.addEventListener("click", clearGrid);
 function clearGrid() {
@@ -68,26 +70,23 @@ function changePenColor() {
 }
 
 function changeBackgroundColor() {
-    // runs whenever the background color input value (onchange listener added to the HTML element) is altered.
-    // defaultBackgroundColor = document.querySelector('.bg-color').value;
-    // clearGrid() 
-
-       const backgroundColorDivs = document.querySelectorAll('.bg-color-select');
-       console.log(backgroundColorDivs.length);
-       // set new value
+    // grab all the small divs (that have both classes aka the ones that don't have pen ink)!!!!!!
+       const backgroundColorDivs = document.querySelectorAll('.bg-color-select.mini-grid-square');
+       // console log below displays how many of those divs are NOT penned in / drawn on
+       // console.log(backgroundColorDivs.length);
+       // set new value using the color input
        defaultBackgroundColor = document.querySelector('.bg-color').value;
-       // add style element to only those affected divs (not the pen ones too)
-    //    backgroundColorDivs.style.cssText = `background-color: ${defaultBackgroundColor};`
+       // add style element to only those affected divs (not the pen ones!)
+       // this had an issue before only because I never set the correct height and width attributes outside of the load grid function (oops!)
+       backgroundColorDivs.forEach(element => element.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
+       );
     }
       
-
-
-
 function loadGrid(userInput) {
     // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
     if (secondColorEnable === true) {toggleBackgroundColor();}
     // BObtain the grid square width based on the current large gridbox container width and height:
-    const smallGridWidth = (gridboxWidth / userInput);
+
     // I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
     console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
     console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
@@ -132,6 +131,7 @@ function loadGrid(userInput) {
             break;
         }
       }
+    
 
 }
 
