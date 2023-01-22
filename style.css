@@ -27,8 +27,6 @@ button {
     flex-direction: row;
 }
 
-
-
 .header {
     width: 100%;
     border: 1px solid black;
@@ -85,8 +83,6 @@ div.main-container {
     padding: 10px 20px;
     flex-wrap: wrap;
 }
-
-
 
 /* css styles applied ONLY to the box that has the eraser and clear buttons in it */
 #eraser-box {
