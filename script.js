@@ -79,10 +79,9 @@ function loadGrid(userInput) {
             smallGrid.className = 'mini-grid-square';
             // width and height is determined directly from the user's input of grid size!
             smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
-            // event listeners (COMMENTING OUT THE NEXT LINE BELOW FIXES REDUNDANCY BRUSH ERROR! Accidentally defined this twice)
-            // smallGrid.addEventListener('mousemove', (pickColor));
             // place div element inside #result divs
             gridbox.appendChild(smallGrid);
+            
             // defining the function that occurs when hover is selected
             function pickColor(event) {
                 smallGrid.style.backgroundColor = `${userColor}`;
