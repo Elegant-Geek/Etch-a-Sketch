@@ -58,8 +58,6 @@ function toggleBackgroundColor() {
         secondColorEnable = false;
         eraserButton.style.cssText = 'background-color: aquamarine';
         eraserButton.innerHTML = 'Get Eraser';
-        //change later to match color
-        defaultPenColor = 'black';
     }
 
   }
@@ -109,7 +107,16 @@ function loadGrid(userInput) {
                 smallGrid.style.backgroundColor = `${defaultPenColor}`;
                 // whenever pen tool is used, the 'yes this is a bg color square' identifier is removed. (square is no longer a bg color div)
                 // NOTE: that whenever the grid is reloaded, all divs get the 'bg-color-select' class added back in.
-                smallGrid.classList.toggle('bg-color-select');
+
+                // if the eraser is selected, the divs that are moused over RETAIN the bg-color-select so that background color changes include these squares!
+                if (secondColorEnable === true) {
+                    smallGrid.classList.add('bg-color-select');
+                }
+                // if the eraser is NOT selected, the divs that are moused over LOSE the bg-color-select so that background color changes include these squares!
+                else {
+                // Adjusted the line below from 'toggle' to removing the class! Otherwise, re-drawing over the same area adds the background color (refill) back in when bg color changes! Bad!
+                smallGrid.classList.remove('bg-color-select');
+                }
             }
 
             smallGrid.addEventListener(
