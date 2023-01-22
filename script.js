@@ -114,14 +114,14 @@ function loadGrid(userInput) {
                 // if the eraser is selected, the divs that are moused over RETAIN the bg-color-select so that background color changes include these squares!
                 if (secondColorEnable === true) {
                     smallGrid.classList.add('bg-color-select');
-                    // changeBackgroundColor();
+                    // this sets the grid square color to match the user inputted background color (secondary color) chosen for the grid.
                     smallGrid.style.backgroundColor = `${defaultBackgroundColor}`;
                 }
                 // if the eraser is NOT selected, the divs that are moused over LOSE the bg-color-select so that background color changes include these squares!
                 else {
                 // Adjusted the line below from 'toggle' to removing the class! Otherwise, re-drawing over the same area adds the background color (refill) back in when bg color changes! Bad!
                 smallGrid.classList.remove('bg-color-select');
-                // changePenColor();
+                // this line looks like a a typo, but it is NOT! It sets the mini grid square color to match the pen color chosen.
                 smallGrid.style.backgroundColor = `${defaultPenColor}`;
                 }
             }
