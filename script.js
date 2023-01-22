@@ -12,7 +12,7 @@ gridbox.style.cssText = `box-sizing: content-box; width: ${gridboxWidth}px; heig
 let userInput = 16;
 // NOTE: DO NOT exceed 60 x 60 px grid for simplicity:
 let maxWidth = 60;
-let userColor = 'black';
+let defaultPenColor = 'black';
 let defaultBackgroundColor = 'white';
 let secondColorEnable = false;
 let isDrawing = false;
@@ -49,7 +49,7 @@ function toggleBackgroundColor() {
         secondColorEnable = true;
         eraserButton.style.cssText = 'background-color: rgb(116, 116, 221)';
         eraserButton.innerHTML = 'Get Pen';
-        userColor = defaultBackgroundColor;
+        defaultPenColor = defaultBackgroundColor;
     }
     
     else if (secondColorEnable === true) {
@@ -57,10 +57,31 @@ function toggleBackgroundColor() {
         eraserButton.style.cssText = 'background-color: aquamarine';
         eraserButton.innerHTML = 'Get Eraser';
         //change later to match color
-        userColor = 'black';
+        defaultPenColor = 'black';
     }
 
   }
+
+function changePenColor() {
+    // runs whenever the pen color input value (onchange listener added to the HTML element) is altered.
+    defaultPenColor = document.querySelector('.pen-color').value;
+}
+
+function changeBackgroundColor() {
+    // runs whenever the background color input value (onchange listener added to the HTML element) is altered.
+    // defaultBackgroundColor = document.querySelector('.bg-color').value;
+    // clearGrid() 
+
+       const backgroundColorDivs = document.querySelectorAll('.bg-color-select');
+       console.log(backgroundColorDivs.length);
+       // set new value
+       defaultBackgroundColor = document.querySelector('.bg-color').value;
+       // add style element to only those affected divs (not the pen ones too)
+    //    backgroundColorDivs.style.cssText = `background-color: ${defaultBackgroundColor};`
+    }
+      
+
+
 
 function loadGrid(userInput) {
     // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
@@ -76,15 +97,20 @@ function loadGrid(userInput) {
             // NOTE: ALL other variables are related back / dependent on / tied to what the user sets as the input for the grid. 
             const smallGrid= document.createElement('div');
             // create a classname for each div
-            smallGrid.className = 'mini-grid-square';
+            smallGrid.className = 'mini-grid-square bg-color-select';
+            // gives me access to all inner smallgrid boxes as long as they have that bg-color-select class on them!
+            // smallGrid.classList.toggle('bg-color-select');
             // width and height is determined directly from the user's input of grid size!
             smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
             // place div element inside #result divs
             gridbox.appendChild(smallGrid);
-            
+
             // defining the function that occurs when hover is selected
             function pickColor(event) {
-                smallGrid.style.backgroundColor = `${userColor}`;
+                smallGrid.style.backgroundColor = `${defaultPenColor}`;
+                // whenever pen tool is used, the 'yes this is a bg color square' identifier is removed. (square is no longer a bg color div)
+                // NOTE: that whenever the grid is reloaded, all divs get the 'bg-color-select' class added back in.
+                smallGrid.classList.toggle('bg-color-select');
             }
 
             smallGrid.addEventListener(

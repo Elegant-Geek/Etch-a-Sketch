@@ -7,6 +7,17 @@ html, body {
 div {
   box-sizing: border-box;
 }
+/* color swatch setup */
+.pen-color-div, .bg-color-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+input[type="color"]::-moz-color-swatch {
+    border-radius: 10px;
+    border-style: none;
+  }
 
 button {
     background-color: aquamarine;

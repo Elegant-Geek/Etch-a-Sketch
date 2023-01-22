@@ -25,8 +25,18 @@
             <h2>Title goes here</h2>
 
             <div class="settings-box">
-                <p>Pen color</p>
-                <p>Background Color</p>
+                <div class="pen-color-div">
+                    <p>Pen color</p>
+                    <!-- USE THE ONCHANGE event listener to capture the new input user value whenever a change is made-->
+                    <input class="pen-color" onchange="changePenColor();" type="color" value="#000000"/>
+                </div>
+                <div class="bg-color-div">
+                    <p>Background Color</p>
+                    <!-- USE THE ONCHANGE event listener to capture the new input user value whenever a change is made-->
+                    <!-- NOTE: color options are NOT affected in JS until a change is made to color picker. Default colors here are only set to match the JS default inputs -->
+                    <!-- NOTE: if you update the default user pen color and bg color in JS, these initial input color picker values should be manually updated to reflect the changes too. -->
+                    <input class="bg-color" onchange="changeBackgroundColor();" type="color" value="#FFFFFF"/>
+                </div>
             </div>
             <div class="settings-box" id="eraser-box">
                 <button id="eraser-btn">Get Eraser</button>
