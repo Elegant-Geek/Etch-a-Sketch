@@ -6,7 +6,7 @@ const gridboxWidth = 500;
 // setting up properties of the huge gridbox inside the DOM so that I can grab the width from within!!!!!
 // NOTE: THIS is the line (gridbox.style.cssText) where you can change the width and height of the main gridbox container dynamically w/o it breaking anything else!
 // the constant of the gridbox width is placed inside the styling here after setting the constant (removed redundant regex pulling)
-gridbox.style.cssText = `box-sizing: content-box; width: ${gridboxWidth}px; height: ${gridboxWidth}px; border: 1px solid black; display: flex; flex-wrap: wrap;`;
+gridbox.style.cssText = `box-sizing: content-box; width: ${gridboxWidth}px; height: ${gridboxWidth}px; border: 1px solid black; display: flex; flex-wrap: wrap; user-select: none;`;
 
 // this must be set to 16 to match the initial slider default position loaded in the browser.
 let userInput = 16;
@@ -15,7 +15,7 @@ let maxWidth = 60;
 let userColor = 'black';
 let defaultBackgroundColor = 'white';
 let secondColorEnable = false;
-
+let isDrawing = false;
 // set up clear grid button, size label, and slider:
 const sizeValue = document.getElementById('grid-size-label');
 const gridSlider = document.getElementById('grid-size-slider');
@@ -80,13 +80,27 @@ function loadGrid(userInput) {
             // width and height is determined directly from the user's input of grid size!
             smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
             // event listeners
-            smallGrid.addEventListener('mousemove', (pickColor));
+            // smallGrid.addEventListener('mousemove', (pickColor));
             // place div element inside #result divs
             gridbox.appendChild(smallGrid);
             // defining the function that occurs when hover is selected
             function pickColor(event) {
                 smallGrid.style.backgroundColor = `${userColor}`;
             }
+
+
+
+            smallGrid.addEventListener(
+                'mousedown', () => isDrawing = true);
+              
+            smallGrid.addEventListener('mousemove', (event) => {
+               if (isDrawing === true) {
+                pickColor(event);
+            }
+              });
+              
+            smallGrid.addEventListener(
+                'mouseup', () => isDrawing = false);
         }
 
         else {

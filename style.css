@@ -28,6 +28,7 @@ button {
 }
 
 
+
 .header {
     width: 100%;
     border: 1px solid black;
@@ -100,5 +101,4 @@ div.main-container {
 #grid-size-slider {
     margin: 10px 0px;
 }
-
 
