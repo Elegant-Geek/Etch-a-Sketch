@@ -50,8 +50,8 @@ function changeSize(value) {
 
 const eraserButton = document.getElementById('eraser-btn');
 // add the event listener (clears grid when button is clicked)
-eraserButton.addEventListener("click", toggleBackgroundColor);
-function toggleBackgroundColor() {
+eraserButton.addEventListener("click", toggleEraser);
+function toggleEraser() {
     if (secondColorEnable === false) {
         secondColorEnable = true;
         eraserButton.style.cssText = 'background-color: rgb(116, 116, 221)';
@@ -75,7 +75,8 @@ function changePenColor() {
     defaultPenColor = document.querySelector('.pen-color').value;
     // BONUS FEATURE: whenever you select a new pen color while on the eraser mode (second color enable true), the tool reverts back to the pen not the eraser!
     if (secondColorEnable === true) {
-        toggleBackgroundColor();
+        //turn off eraser if it is on while you pick a new color!
+        toggleEraser();
     }
 }
 
