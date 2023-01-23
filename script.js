@@ -30,9 +30,9 @@ clearGridButton.addEventListener("click", clearGrid);
 function clearGrid() {
     // Clears all child little grid divs
     gridbox.innerHTML='';
-    //Grab pen color. This function also resets the eraser back to pen on anytime you run it
+    // Grab pen color. This function also resets the eraser back to pen on anytime you run it
     changePenColor(); 
-    // load the grid with the currently configured user input like pen color and currently selected bg color
+    // Load the grid with the currently configured user input like pen color and currently selected bg color
     loadGrid(userInput);
 }
 
@@ -40,17 +40,17 @@ function clearGrid() {
 gridSlider.onchange = (e) => changeSize(e.target.value);
 
 function changeSize(value) {
-    // update with correct user value from the slider!
+    // Update with correct user value from the slider!
     userInput = value;
-    // every time the grid size updates, the gridbox width MUST be re-defined! 
+    // Every time the grid size updates, the gridbox width MUST be re-defined! 
     smallGridWidth = (gridboxWidth / userInput);
-    // update slider display text instantly:
+    // Update slider display text instantly:
     sizeValue.innerHTML = `${value} x ${value}`;
-    // clear grid will make it blank then load in the grid with the new user input!
+    // Clear grid will make it blank then load in the grid with the new user input!
     clearGrid();
 }
 
-// add the event listener (clears grid when button is clicked)
+// Add the event listener (clears grid when button is clicked)
 eraserButton.addEventListener("click", toggleEraser);
 
 function toggleEraser() {
@@ -62,9 +62,11 @@ function toggleEraser() {
     }
     
     else if (secondColorEnable === true) {
+        // 'get pen' is currently displayed onscreen before this runs. 
+        // If eraser is on (secondColorEnable === true), it gets turned off then the program gets updated with whatever the current pen color is (line 70)
         secondColorEnable = false;
-        // If you change the background color and then hit this toggle button back again, you must GRAB THE PEN COLOR again.
-        // I already implemented the change pen color option in the cleargrid thing and toggled back to pen, but not here
+        // If user changes background color and then hit this toggle button back again, you continue to work on the eraser (good) but must have the program immediately capture the color of the pen.
+        // I already implemented changePenColor() in the cleargrid thing (which) toggles you back to pen if on eraser), and also did it here! Line 70.
         changePenColor();
         eraserButton.style.cssText = 'background-color: #9795f9';
         eraserButton.innerHTML = 'Get Eraser';
@@ -72,66 +74,63 @@ function toggleEraser() {
 }
 
 function changePenColor() {
-    // runs whenever the pen color input value (onchange listener added to the HTML element) is altered.
+    // Runs whenever the pen color input value (onchange listener added to the HTML element) is altered.
+    // Set new value to the DOM pen-color's current value.
     defaultPenColor = document.querySelector('.pen-color').value;
-    // BONUS FEATURE: whenever you select a new pen color while on the eraser mode (second color enable true), the tool reverts back to the pen not the eraser!
     if (secondColorEnable === true) {
-        //turn off eraser if it is on while you pick a new color!
+        // After you pick a new color, turn off the eraser if it is currently on (secondColorEnable === true).
+        // NOTE: whenever you select a new pen color while on the eraser mode (second color enable true), the tool reverts back to the pen not the eraser!
         toggleEraser();
     }
 }
 
 function changeBackgroundColor() {
-// grab all the small divs (that have both classes aka the ones that don't have pen ink)!!!!!!
+// Grab all the small divs (that have both classes aka the ones that don't have pen ink)!
     const backgroundColorDivs = document.querySelectorAll('.bg-color-select.mini-grid-square');
     // console log below displays how many of those divs are NOT penned in / drawn on
     // console.log(backgroundColorDivs.length);
-    // set new value using the color input
+    // Set new value to the DOM bg-color's current value.
     defaultBackgroundColor = document.querySelector('.bg-color').value;
-    // add style element to only those affected divs (not the pen ones!)
-    // this had an issue before only because I never set the correct height and width attributes outside of the load grid function (oops!)
+    // Add style element to only those affected divs (not the pen ones!)
+    // This had an issue before only because I never set the correct height and width attributes outside of the load grid function (oops! I have added them here.)
     backgroundColorDivs.forEach(element => element.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
     );
 }
       
 function loadGrid(userInput) {
-    // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
-    // Obtain the grid square width based on the current large gridbox container width and height: (smallgridwidth gets recalculated every time the grid gets resized...
-    // so that when cleargrid or loadgrid is called, smallgridwidth is already calculated thanks to the .onchange grid slider function)
-    // smallGridWidth = (gridboxWidth / userInput);
+    // When grid size is changed or cleared, this function runs again. Always start a fresh canvas with pen selected. 
+    // (Pen gets toggled back to default in the changepencolor function inside of cleargrid function before loadgrid is called.)
+    // Obtain the grid square width based on the current large gridbox container width and height. The smallgridwidth gets recalculated... 
+    // Every time the grid gets resized thanks to the changeSize() function)
     // I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
-    console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
-    console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
+    console.log(`Each grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} px.`);
+    console.log (`The main gridbox (${gridboxWidth} x ${gridboxWidth} px) contains a ${userInput} x ${userInput} px grid within.`)
     for (let i = 0; i < userInput ** 2; i++) {
         if (userInput <= maxWidth) {
-            // this always calculates the exact pixels needed for the grid so that the only thing the user needs to change is the user slider input (ex: 16 x 16) dimension!
-            // NOTE: ALL other variables are related back / dependent on / tied to what the user sets as the input for the grid. 
             const smallGrid= document.createElement('div');
-            // create a classname for each div
+            // Create a classname for each div (multiple classnames are separated by a space)
             smallGrid.className = 'mini-grid-square bg-color-select';
-            // gives me access to all inner smallgrid boxes as long as they have that bg-color-select class on them!
-            // smallGrid.classList.toggle('bg-color-select');
-            // width and height is determined directly from the user's input of grid size!
+            // Gives me access to all inner smallgrid boxes from outside this function as long as they have that bg-color-select class on them! COOL.
+            // The dimensions of the smaller grid squares is determined directly from the user's input of grid size and nothing else!
             smallGrid.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
-            // place div element inside #result divs
+            // Place div element inside #result divs
             gridbox.appendChild(smallGrid);
-
-            // defining the function that occurs when hover is selected
+            // This function is called during a click and drag!
             function pickColor(event) {
-                // whenever pen tool is used, the 'yes this is a bg color square' identifier is removed. (square is no longer a bg color div)
+                // NOTE: whenever pen tool is used, the 'yes this is a bg color square' class (bg-color-select) is removed. (The square is no longer a bg-color-select div)
                 // NOTE: that whenever the grid is reloaded, all divs get the 'bg-color-select' class added back in.
 
-                // if the eraser is selected, the divs that are moused over RETAIN the bg-color-select so that background color changes include these squares!
+                // If the eraser is selected, the divs that are moused over RETAIN the bg-color-select so that background color changes include these squares!
                 if (secondColorEnable === true) {
                     smallGrid.classList.add('bg-color-select');
-                    // this sets the grid square color to match the user inputted background color (secondary color) chosen for the grid.
+                    // This sets the grid square color to match the user inputted background color (secondary color) chosen for the grid.
                     smallGrid.style.backgroundColor = `${defaultBackgroundColor}`;
                 }
-                // if the eraser is NOT selected, the divs that are moused over LOSE the bg-color-select so that background color changes include these squares!
+                // If the eraser is NOT selected, the divs that are moused over LOSE the bg-color-select so that background color changes include these squares!
                 else {
-                // Adjusted the line below from 'toggle' to removing the class! Otherwise, re-drawing over the same area adds the background color (refill) back in when bg color changes! Bad!
+                // The line below must be REMOVE not 'toggle' to remove the class once! Otherwise with toggle, re-drawing over the same area reassigns/adds the bg-color-select div which fills in these pen squares when background color changes! Bad!
                 smallGrid.classList.remove('bg-color-select');
-                // this line looks like a a typo, but it is NOT! It sets the mini grid square color to match the pen color chosen.
+                // This line is NOT a typo! It sets the mini grid square color to match the pen color chosen.
                 smallGrid.style.backgroundColor = `${defaultPenColor}`;
                 }
             }
@@ -151,7 +150,7 @@ function loadGrid(userInput) {
 
         else {
             console.log(`Grid dimensions must be less than ${maxWidth} x ${maxWidth} pixels.`)
-            //break allows you to only run this command once rather than a million times
+            // Break allows you to only run this command once rather than a million times
             break;
         }
       }
@@ -159,8 +158,10 @@ function loadGrid(userInput) {
 
 }
 
-// tells browser what to run on refresh
+// Tells browser what to run on launch / refreshes.
 window.onload = () => {
     loadGrid(userInput);
   }
 
+  // NOTE: Any commits past this point are commented code updates ONLY. If any bugs, compare this commit to the code structure of older commits that do not contain this message.
+  // Etch a Sketch: Thursday - Sunday (Ended Mon morning at 12:30AM).
