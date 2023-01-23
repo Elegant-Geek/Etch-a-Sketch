@@ -61,6 +61,9 @@ function toggleBackgroundColor() {
     
     else if (secondColorEnable === true) {
         secondColorEnable = false;
+        // If you change the background color and then hit this toggle button back again, you must GRAB THE PEN COLOR again.
+        // I already implemented the change pen color option in the cleargrid thing and toggled back to pen, but not here
+        changePenColor();
         eraserButton.style.cssText = 'background-color: aquamarine';
         eraserButton.innerHTML = 'Get Eraser';
     }
