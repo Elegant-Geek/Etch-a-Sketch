@@ -1,42 +1,44 @@
-// NOTE: that below, I am only grabbing the gridbox and adding css styles to it from within using DOM, this main gridbox container itself is not added thru JS (it sits in HTML.) 
-// The critical / primary styles however, ARE added via DOM / JS stuff! I chose to add the CSS styles in HERE so that the dimensions of the gridbox can remain more dynamic (500x500 for now.)
-// assign the main gridbox div to a parent container reference for gridbox DOM children:
+// NOTE: I am only grabbing the gridbox and adding css styles to it from within using DOM, this main gridbox container sits in HTML and is used as a reference.
+// Use the large main gridbox div as a reference container for the grid's several DOM children:
 const gridbox = document.querySelector('.gridbox');
+// I chose to add the main gridbox dimensions in HERE so it can remain more dynamic (You get to set the main gridbox width on line 5).
 const gridboxWidth = 500;
-// setting up properties of the huge gridbox inside the DOM so that I can grab the width from within!!!!!
-// NOTE: THIS is the line (gridbox.style.cssText) where you can change the width and height of the main gridbox container dynamically w/o it breaking anything else!
-// the constant of the gridbox width is placed inside the styling here after setting the constant (removed redundant regex pulling)
+// Setting up several properties of the huge gridbox inside the DOM:
+// Now the dynamic gridbox dimensions get updated on the fly!
 gridbox.style.cssText = `box-sizing: content-box; width: ${gridboxWidth}px; height: ${gridboxWidth}px; border: 1px solid black; display: flex; flex-wrap: wrap; user-select: none;`;
 
-// this must be set to 16 to match the initial slider default position loaded in the browser.
+// NOTE: userInput must be set to 16 to match the initial slider default position loaded in the browser.
 let userInput = 16;
-// NOTE: DO NOT exceed 60 x 60 px grid for simplicity:
+// NOTE: DO NOT exceed 60 x 60 px grid for simplicity. (The range slider in HTML is also set to 60 x 60 px maximum grid)
 let maxWidth = 60;
 let defaultPenColor = 'black';
 let defaultBackgroundColor = 'white';
+// By default on first load, eraser is not selected 
 let secondColorEnable = false;
 let isDrawing = false;
-// set up clear grid button, size label, and slider:
-const sizeValue = document.getElementById('grid-size-label');
-const gridSlider = document.getElementById('grid-size-slider');
+// Set up clear grid button, size label, and slider: (use LET not CONST for the changing values)
+let sizeValue = document.getElementById('grid-size-label');
+let gridSlider = document.getElementById('grid-size-slider');
 const clearGridButton = document.getElementById('clear-grid-btn');
-// LET, not CONST for smallgridwidth because this dimension changes whenever the user input is altered with the grid sizing slider!!!!!
+const eraserButton = document.getElementById('eraser-btn');
+// LET, not CONST for smallgridwidth because this dimension changes whenever the user input is altered with the grid sizing slider!
 let smallGridWidth = (gridboxWidth / userInput);
 
-// add the event listener (clears grid when button is clicked)
+// Add the event listener (clears grid when button is clicked)
 clearGridButton.addEventListener("click", clearGrid);
+
 function clearGrid() {
-    // clears everything, all child little grid divs
+    // Clears all child little grid divs
     gridbox.innerHTML='';
-    // reset eraser back to pen on anytime you clear the grid
-    //grab pen color. This function also resets the eraser back to pen on anytime you run it
+    //Grab pen color. This function also resets the eraser back to pen on anytime you run it
     changePenColor(); 
     // load the grid with the currently configured user input like pen color and currently selected bg color
     loadGrid(userInput);
-  }
+}
 
-// from https://github.com/michalosman for changing slider value: 
+// Credit to https://github.com/michalosman for changing slider value (line 37): 
 gridSlider.onchange = (e) => changeSize(e.target.value);
+
 function changeSize(value) {
     // update with correct user value from the slider!
     userInput = value;
@@ -46,11 +48,11 @@ function changeSize(value) {
     sizeValue.innerHTML = `${value} x ${value}`;
     // clear grid will make it blank then load in the grid with the new user input!
     clearGrid();
-    }
+}
 
-const eraserButton = document.getElementById('eraser-btn');
 // add the event listener (clears grid when button is clicked)
 eraserButton.addEventListener("click", toggleEraser);
+
 function toggleEraser() {
     if (secondColorEnable === false) {
         secondColorEnable = true;
@@ -67,8 +69,7 @@ function toggleEraser() {
         eraserButton.style.cssText = 'background-color: #9795f9';
         eraserButton.innerHTML = 'Get Eraser';
     }
-
-  }
+}
 
 function changePenColor() {
     // runs whenever the pen color input value (onchange listener added to the HTML element) is altered.
@@ -81,17 +82,17 @@ function changePenColor() {
 }
 
 function changeBackgroundColor() {
-    // grab all the small divs (that have both classes aka the ones that don't have pen ink)!!!!!!
-       const backgroundColorDivs = document.querySelectorAll('.bg-color-select.mini-grid-square');
-       // console log below displays how many of those divs are NOT penned in / drawn on
-       // console.log(backgroundColorDivs.length);
-       // set new value using the color input
-       defaultBackgroundColor = document.querySelector('.bg-color').value;
-       // add style element to only those affected divs (not the pen ones!)
-       // this had an issue before only because I never set the correct height and width attributes outside of the load grid function (oops!)
-       backgroundColorDivs.forEach(element => element.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
-       );
-    }
+// grab all the small divs (that have both classes aka the ones that don't have pen ink)!!!!!!
+    const backgroundColorDivs = document.querySelectorAll('.bg-color-select.mini-grid-square');
+    // console log below displays how many of those divs are NOT penned in / drawn on
+    // console.log(backgroundColorDivs.length);
+    // set new value using the color input
+    defaultBackgroundColor = document.querySelector('.bg-color').value;
+    // add style element to only those affected divs (not the pen ones!)
+    // this had an issue before only because I never set the correct height and width attributes outside of the load grid function (oops!)
+    backgroundColorDivs.forEach(element => element.style.cssText = `width: ${smallGridWidth}px; height: ${smallGridWidth}px; background-color: ${defaultBackgroundColor};`
+    );
+}
       
 function loadGrid(userInput) {
     // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
