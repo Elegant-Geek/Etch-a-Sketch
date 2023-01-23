@@ -7,12 +7,17 @@ html, body {
 div {
   box-sizing: border-box;
 }
+
+/* remove fanciness from link */
+.footer a {
+    text-decoration: none;
+}
 /* color swatch setup */
 .pen-color-div, .bg-color-div {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 input[type="color"] {
     /* this config of width and height makes em perfect squares */
@@ -42,17 +47,25 @@ button {
     flex-direction: row;
 }
 
-.header {
+.header, .footer {
     width: 100%;
     border: 1px solid black;
     display: flex;
+    align-items: center;
+}
+
+.header {
     padding: 0rem 4rem;
     justify-content: space-between;
-    align-items: center;
 }
 
 .header  h1 {
     margin: 5px;
+}
+
+.footer {
+    padding: 1rem 4rem;
+    justify-content: center;
 }
 body {
     font-family: 'Roboto', sans-serif;
@@ -106,7 +119,7 @@ div.main-container {
 }
 
 #grid-size-box p {
-    margin: 2px;
+    margin: 5px;
 }
 
 #grid-size-slider {
