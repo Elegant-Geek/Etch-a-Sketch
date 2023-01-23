@@ -11,7 +11,10 @@ div {
 /* remove fanciness from link */
 .footer a {
     text-decoration: none;
+    color: #5dd5e5;
+
 }
+
 /* color swatch setup */
 .pen-color-div, .bg-color-div {
     display: flex;
@@ -76,10 +79,10 @@ div.main-container {
     justify-content: center;
     align-items: center;
     margin: 2rem 0rem;
-    height: 500px;
+    height: auto;
     /* I LOVE THE GAP FEATURE */
     gap: 50px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap-reverse;
 }
 
 .left-panel {
@@ -90,7 +93,7 @@ div.main-container {
     align-items: center;
     display: block;
     padding: 0px 20px;
-    height: 500px;
+    /* height: 500px; */
 }
 .left-panel h2 {
     margin-top: 0px;
