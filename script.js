@@ -28,6 +28,9 @@ clearGridButton.addEventListener("click", clearGrid);
 function clearGrid() {
     // clears everything, all child little grid divs
     gridbox.innerHTML='';
+    // reset eraser back to pen on anytime you clear the grid
+    //grab pen color. This function also resets the eraser back to pen on anytime you run it
+    changePenColor(); 
     // load the grid with the currently configured user input like pen color and currently selected bg color
     loadGrid(userInput);
   }
@@ -88,7 +91,6 @@ function changeBackgroundColor() {
       
 function loadGrid(userInput) {
     // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
-    if (secondColorEnable === true) {toggleBackgroundColor();}
     // Obtain the grid square width based on the current large gridbox container width and height: (smallgridwidth gets recalculated every time the grid gets resized...
     // so that when cleargrid or loadgrid is called, smallgridwidth is already calculated thanks to the .onchange grid slider function)
     // smallGridWidth = (gridboxWidth / userInput);
