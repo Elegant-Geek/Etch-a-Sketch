@@ -4,12 +4,13 @@ html, body {
     padding: 0;
     background-color: #B2BEEB;
 }
+
 /* ALL DIVS GIVEN BORDER-BOX to avoid redundancy in code and to make formatting consistent when adding padding! */
 div {
   box-sizing: border-box;
 }
 
-/* remove fanciness from link */
+/* remove link underline */
 .footer a {
     text-decoration: none;
     color: #A7B2EB;
@@ -24,8 +25,9 @@ div {
     width: 100%;
     gap: 20px;
 }
+
 input[type="color"] {
-    /* this config of width and height makes em perfect squares */
+    /* this config of width and height makes the color preview boxes perfect squares */
     width: 40px;
     height: 44px;
     padding: 0px;
@@ -41,7 +43,7 @@ button {
     width: 120px;
     padding: 10px;
     cursor:pointer;
-  }
+}
 
 .mini-grid-square {
     /* width: 31.25px;
