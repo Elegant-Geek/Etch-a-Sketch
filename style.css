@@ -14,10 +14,14 @@ div {
     align-items: center;
     gap: 10px;
 }
-input[type="color"]::-moz-color-swatch {
-    border-radius: 10px;
-    border-style: none;
-  }
+input[type="color"] {
+    /* this config of width and height makes em perfect squares */
+    width: 40px;
+    height: 44px;
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+}
 
 button {
     background-color: #5dd5e5;
