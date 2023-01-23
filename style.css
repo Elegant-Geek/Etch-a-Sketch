@@ -2,6 +2,7 @@
 html, body {
     margin: 0;
     padding: 0;
+    background-color: #B2BEEB;
 }
 /* ALL DIVS GIVEN BORDER-BOX to avoid redundancy in code and to make formatting consistent when adding padding! */
 div {
@@ -11,15 +12,16 @@ div {
 /* remove fanciness from link */
 .footer a {
     text-decoration: none;
-    color: #5dd5e5;
+    color: #A7B2EB;
 
 }
 
 /* color swatch setup */
 .pen-color-div, .bg-color-div {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;    
     align-items: center;
+    width: 100%;
     gap: 20px;
 }
 input[type="color"] {
@@ -52,23 +54,29 @@ button {
 
 .header, .footer {
     width: 100%;
-    border: 1px solid black;
     display: flex;
     align-items: center;
+    background-color: #4C5163;
 }
 
 .header {
     padding: 0rem 4rem;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .header  h1 {
     margin: 5px;
+    color: white;
 }
 
 .footer {
     padding: 1rem 4rem;
-    justify-content: center;
+    justify-content: space-between;
+    color: white;
+}
+.social-media-container {
+    display: flex;
+    gap: 15px;
 }
 body {
     font-family: 'Roboto', sans-serif;
@@ -118,7 +126,7 @@ div.main-container {
 /* css styles applied ONLY to the box that has the eraser and clear buttons in it */
 #eraser-box {
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 #grid-size-box p {
