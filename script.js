@@ -26,10 +26,9 @@ let smallGridWidth = (gridboxWidth / userInput);
 // add the event listener (clears grid when button is clicked)
 clearGridButton.addEventListener("click", clearGrid);
 function clearGrid() {
-    // reset bg color back to white for all little grid divs
-    // smallGrid.style.backgroundColor = `${defaultBackgroundColor}`;
+    // clears everything, all child little grid divs
     gridbox.innerHTML='';
-    // load the grid with the currently configured user input
+    // load the grid with the currently configured user input like pen color and currently selected bg color
     loadGrid(userInput);
   }
 
@@ -90,8 +89,9 @@ function changeBackgroundColor() {
 function loadGrid(userInput) {
     // When grid size is changed or cleared, this function runs again. Toggle pen back to default! Always start a fresh canvas with pen selected.
     if (secondColorEnable === true) {toggleBackgroundColor();}
-    // Obtain the grid square width based on the current large gridbox container width and height: (MUST NEVER COMMENT THIS OUT)
-    const smallGridWidth = (gridboxWidth / userInput);
+    // Obtain the grid square width based on the current large gridbox container width and height: (smallgridwidth gets recalculated every time the grid gets resized...
+    // so that when cleargrid or loadgrid is called, smallgridwidth is already calculated thanks to the .onchange grid slider function)
+    // smallGridWidth = (gridboxWidth / userInput);
     // I am only using .toFixed(2) for display purposes in the console log! I do NOT want to round my actual variable down at all!
     console.log(`The current dimension of the individual small grid square is ${smallGridWidth.toFixed(2)} x ${smallGridWidth.toFixed(2)} pixels.`);
     console.log (`The main gridbox dimension is ${gridboxWidth} x ${gridboxWidth} px with a ${userInput} x ${userInput} px size grid within.`)
